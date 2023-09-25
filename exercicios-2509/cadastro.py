@@ -13,3 +13,10 @@ while True:
     print("6. Pesquisa por tipo")
     print("7. Pesquisa por intervalo de preços")
     print("8. Finalizar")
+    opcao = int(input("Opção: "))
+    if opcao == 1:
+        incluir()
+    elif opcao == 2:
+        listar_marcas_ordem()
+    else:
+        break
