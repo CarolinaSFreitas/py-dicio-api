@@ -6,6 +6,7 @@ def titulo(texto, sublinhado="-"):
     print(texto)
     print(sublinhado*len(texto))
 
+##INCLUIR 
 def incluir():
     titulo("Inclusão de Dados")
 
@@ -15,6 +16,18 @@ def incluir():
     preco = input("Preço do Vinho R$........: ")
 
     dic_vinho = {"tipo": tipo, "marca_id": marca_id, "teor": teor, "preco": preco}
+
+    response = requests.post(url_api+"vinhos", json=dic_vinho)
+    
+    if response.status_code == 201:
+        vinho = response.json()
+        print(f"Ok! Vinho cadastrado com o código: {vinho['id']}")
+    else:
+        print("Erro... Não cadastrado.")
+
+##LISTAR MARCAS EM ORDEM (NOME, CIDADE E Nº DE VINHOS)
+def listar_marcas_ordem():
+    pass
 
 while True:
     titulo("Cadastro de Vinhos", "=")
