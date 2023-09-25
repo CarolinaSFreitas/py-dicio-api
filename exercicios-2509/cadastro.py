@@ -1,3 +1,6 @@
+import requests
+url_api = "http://localhost:3000/"
+
 def titulo(texto, sublinhado="-"):
     print()
     print(texto)
@@ -10,6 +13,8 @@ def incluir():
     marca_id = input("Código da Marca: ")
     teor = float(input("Teor Alcoólico: "))
     preco = input("Preço do Vinho R$........: ")
+
+    dic_vinho = {"tipo": tipo, "marca_id": marca_id, "teor": teor, "preco": preco}
 
 while True:
     titulo("Cadastro de Vinhos", "=")
