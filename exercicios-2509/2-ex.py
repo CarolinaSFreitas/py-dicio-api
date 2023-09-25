@@ -1,17 +1,10 @@
-# -------------------------------------------------------------------------------------------------------------------
-### 2) LISTAR AS MARCAS DE VINHO 
-
-url_api = "http://localhost:3000/"
-
+#2) Listar marcas em ordem (nome, cidade e nº de vinhos)
 import requests
-
-response = requests.get(url_api+"marcas")
+#faz o get p/ obter as marcas de vinho
+url_api = "http://localhost:3000/marcas"
+response = requests.get(url_api)
 marcas = response.json()
-#print(marcas) retorno
 
-# -------------------------------------------------------------------------------------------------------------------
-## 2) PERCORRE AS MARCAS E RETORNA EM FORMATO DE DICIONÁRIO, TAMBÉM CONTA QUANTOS VINHOS TEM DAS MARCAS REGISTRADAS 
-
+#percorre as marcas e retorna marca, cidade e o nº de vinhos
 for marca in marcas:
-    print(f"{marca['nome']} - {marca['cidade']} - {len(marca['Vinhos'])} vinhos") #mostra QUANTOS vinhos tem da marca
-
+    print(f"{marca['nome']} - {marca['cidade']} - {len(marca['Vinhos'])} vinhos")
