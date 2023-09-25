@@ -7,7 +7,7 @@ Aula do dia 25/09 de Estrutura de Dados - API com Python
 
 **Doc:** https://realpython.com/api-integration-in-python/
 
-### Pasta 'aula2509' - Introdução a Integração de API em Python 
+### Pasta 'aula2509' - Introdução a Integração da API de Vinhos em Python
 
 ### Passo a Passo
 
