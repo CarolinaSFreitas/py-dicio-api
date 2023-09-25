@@ -10,4 +10,4 @@ marcas = response.json()
 
 ## PERCORRER AS MARCAS E RETORNAR EM FORMATO DE DICIONÁRIO 
 for marca in marcas:
-    print(f"{marca['nome']} - {marca['cidade']}")
+    print(f"{marca['nome']} - {marca['cidade']} - {len(marca['Vinhos'])} vinhos") #mostra QUANTOS vinhos tem da marca
