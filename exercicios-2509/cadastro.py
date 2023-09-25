@@ -3,6 +3,14 @@ def titulo(texto, sublinhado="-"):
     print(texto)
     print(sublinhado*len(texto))
 
+def incluir():
+    titulo("Inclusão de Dados")
+
+    tipo = input("Tipo do Vinho: ")
+    marca_id = input("Código da Marca: ")
+    teor = float(input("Teor Alcoólico: "))
+    preco = input("Preço do Vinho R$........: ")
+
 while True:
     titulo("Cadastro de Vinhos", "=")
     print("1. Incluir vinhos")
