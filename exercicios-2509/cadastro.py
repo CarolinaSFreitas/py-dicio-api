@@ -27,7 +27,7 @@ def incluir():
 
 ##(2) LISTAR MARCAS EM ORDEM (NOME, CIDADE E Nº DE VINHOS) 
 def listar_marcas_ordem():
-    titulo("Listar Marcas em Ordem (nome, cidade e nº de vinhos)")
+    titulo("Marcas de Vinho")
 
     url_api = "http://localhost:3000/marcas"
     response = requests.get(url_api)
@@ -41,9 +41,9 @@ def listar_marcas_ordem():
         print("Erro ao obter a lista de marcas.")
 
 
-###(3) LISTAR MARCAS E VINHOS (nome da marca e dados do vinho)
+##(3) LISTAR MARCAS E VINHOS (nome da marca e dados do vinho)
 def listar_marcas_e_vinhos():
-    titulo("Listar Marcas e Vinhos (nome da marca e dados do vinho)")
+    titulo("Marcas e seus Vinhos")
 
     ##chamada get na rota /marcas p receber as marcas
     url_marcas = "http://localhost:3000/marcas"
@@ -70,6 +70,12 @@ def listar_marcas_e_vinhos():
             print(f"Erro ao obter vinhos para a marca {marca['nome']}.")
 
 
+##(4) Listar vinhos(tipo, nome da marca, teor e preço)
+def listar_vinhos():
+    titulo("Vinhos")
+pass
+
+
 # LOOP WHILE DO SISTEMA QUE CONSOME A API VINICOLA
 while True:
     titulo("Cadastro de Vinhos", "=")
@@ -87,7 +93,9 @@ while True:
     elif opcao == 2:
         listar_marcas_ordem()
     elif opcao == 3:
-        listar_marcas_e_vinhos()           # ir adicionando as funções no loop
+        listar_marcas_e_vinhos()    
+    elif opcao == 4:
+        listar_vinhos()           # ir adicionando as funções no loop
     else:
         break
 
