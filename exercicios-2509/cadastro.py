@@ -6,7 +6,7 @@ def titulo(texto, sublinhado="-"):
     print(texto)
     print(sublinhado*len(texto))
 
-##INCLUIR 
+##(1) INCLUIR 
 def incluir():
     titulo("Inclusão de Dados")
 
@@ -25,38 +25,49 @@ def incluir():
     else:
         print("Erro... Não cadastrado.")
 
-##LISTAR MARCAS EM ORDEM (NOME, CIDADE E Nº DE VINHOS)
+##(2) LISTAR MARCAS EM ORDEM (NOME, CIDADE E Nº DE VINHOS) 
 def listar_marcas_ordem():
     titulo("Listar Marcas em Ordem (nome, cidade e nº de vinhos)")
 
-    ## chamada get a api vinicola p/ obter as infos das marcas
-    response = requests.get(url_api + "marcas")
-    
+    url_api = "http://localhost:3000/marcas"
+    response = requests.get(url_api)
+
     if response.status_code == 200:
         marcas = response.json()
-        
-        ## ordenando as marcas pelo nome usando lambda
-        marcas_ordem = sorted(marcas, key=lambda marca: marca['nome'])
-        
-        for marca in marcas_ordem:
-            # Para cada marca, faça uma chamada à API para obter o número de vinhos associados a ela
-            response_vinhos = requests.get(url_api + f"vinhos/por-marca/{marca['id']}")
-            
-            if response_vinhos.status_code == 200:
-                vinhos = response_vinhos.json()
-                num_vinhos = len(vinhos)
-            else:
-                num_vinhos = 0
-            
-            print(f"Nome da Marca: {marca['nome']}")
-            print(f"Cidade: {marca['cidade']}")
-            print(f"Número de Vinhos: {num_vinhos}")
-            print("=" * 40)
+
+        for marca in marcas:
+            print(f"{marca['nome']} - {marca['cidade']} - {len(marca['Vinhos'])} vinhos")
     else:
         print("Erro ao obter a lista de marcas.")
 
 
+###(3) LISTAR MARCAS E VINHOS (nome da marca e dados do vinho)
+def listar_marcas_e_vinhos():
+    titulo("Listar Marcas e Vinhos (nome da marca e dados do vinho)")
 
+    ##chamada get na rota /marcas p receber as marcas
+    url_marcas = "http://localhost:3000/marcas"
+    response_marcas = requests.get(url_marcas)
+
+    if response_marcas.status_code != 200:
+        print("Erro ao obter a lista de marcas.")
+        return
+
+    marcas = response_marcas.json()
+    ##pra cada marca, os respectivos vinhos
+    for marca in marcas:
+        marca_id = marca['id']
+        url_vinhos_marca = f"http://localhost:3000/vinhos/por-marca/{marca_id}"
+        response_vinhos_marca = requests.get(url_vinhos_marca)
+
+        if response_vinhos_marca.status_code == 200:
+            vinhos = response_vinhos_marca.json()
+            print(f"Marca: {marca['nome']}")
+            
+            for vinho in vinhos:
+                print(f"  - Tipo: {vinho['tipo']}, Preço: R${vinho['preco']}, Teor: {vinho['teor']}")
+        else:
+            print(f"Erro ao obter vinhos para a marca {marca['nome']}.")
 
 
 # LOOP WHILE DO SISTEMA QUE CONSOME A API VINICOLA
@@ -74,7 +85,9 @@ while True:
     if opcao == 1:
         incluir()
     elif opcao == 2:
-        listar_marcas_ordem()       # ir adicionando as funções no loop
+        listar_marcas_ordem()
+    elif opcao == 3:
+        listar_marcas_e_vinhos()           # ir adicionando as funções no loop
     else:
         break
 
