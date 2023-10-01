@@ -27,8 +27,39 @@ def incluir():
 
 ##LISTAR MARCAS EM ORDEM (NOME, CIDADE E Nº DE VINHOS)
 def listar_marcas_ordem():
-    pass
+    titulo("Listar Marcas em Ordem (nome, cidade e nº de vinhos)")
 
+    ## chamada get a api vinicola p/ obter as infos das marcas
+    response = requests.get(url_api + "marcas")
+    
+    if response.status_code == 200:
+        marcas = response.json()
+        
+        ## ordenando as marcas pelo nome usando lambda
+        marcas_ordem = sorted(marcas, key=lambda marca: marca['nome'])
+        
+        for marca in marcas_ordem:
+            # Para cada marca, faça uma chamada à API para obter o número de vinhos associados a ela
+            response_vinhos = requests.get(url_api + f"vinhos/por-marca/{marca['id']}")
+            
+            if response_vinhos.status_code == 200:
+                vinhos = response_vinhos.json()
+                num_vinhos = len(vinhos)
+            else:
+                num_vinhos = 0
+            
+            print(f"Nome da Marca: {marca['nome']}")
+            print(f"Cidade: {marca['cidade']}")
+            print(f"Número de Vinhos: {num_vinhos}")
+            print("=" * 40)
+    else:
+        print("Erro ao obter a lista de marcas.")
+
+
+
+
+
+# LOOP WHILE DO SISTEMA QUE CONSOME A API VINICOLA
 while True:
     titulo("Cadastro de Vinhos", "=")
     print("1. Incluir vinhos")
@@ -43,6 +74,7 @@ while True:
     if opcao == 1:
         incluir()
     elif opcao == 2:
-        listar_marcas_ordem()
+        listar_marcas_ordem()       # ir adicionando as funções no loop
     else:
         break
+
